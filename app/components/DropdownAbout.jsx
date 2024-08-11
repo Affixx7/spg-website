@@ -26,8 +26,7 @@ function DropdownAbout({ anchorEl, open, handleClose }) {
       <MenuItem onClick={() => handleMenuItemClick('/about/mission')}>Mission</MenuItem>
       <MenuItem onClick={() => handleMenuItemClick('/about/code-of-conduct')}>Code of Conduct</MenuItem>
       <MenuItem onClick={() => handleMenuItemClick('/about/board')}>Board</MenuItem>
-      <MenuItem onClick={() => handleMenuItemClick('/about/members')}>Members</MenuItem>
-      <MenuItem onClick={() => handleMenuItemClick('/about/member-benefits')}>Member Benefits</MenuItem>
+      <MenuItem onClick={() => handleMenuItemClick('/about/members')}>Member Info</MenuItem>
       <MenuItem onClick={() => handleMenuItemClick('/about/achievement')}>Achievement</MenuItem>
       <MenuItem onClick={() => handleMenuItemClick('/about/spgna-awards')}>SPGNA Awards</MenuItem>
       <MenuItem onClick={() => handleMenuItemClick('/about/newsletters')}>Newsletters</MenuItem>

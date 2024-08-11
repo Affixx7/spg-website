@@ -1,0 +1,126 @@
+
+'use client';
+import React from 'react';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Divider from '@mui/material/Divider';
+import PreviousOfficersTable from './PreviousOfficersTable';
+import AdvisorCard from './AdvisorCard';
+import OfficeBearerCard from './OfficeBearerCard';
+
+const advisors = [
+  {
+    name: 'Mrinal K. Sen',
+    bio: 'Mrinal K. Sen received his B.Sc (1977) and M.Sc (1979) degrees in Applied Geophysics from Indian School of Mines and a PhD in Geophysics (Theoretical Seismology) from the University of Hawaii at Manoa (Hawaii Institute of Geophysics). He is a senior research scientist at the Institute for Geophysics of the University of Texas at Austin. His research areas include seismic wave propagation, inverse theory, seismic imaging, and computational physics.',
+  },
+  {
+    name: 'Subhashis Mallick',
+    bio: 'Subhashis Mallick received his Bachelors degree with honors in geological sciences in 1976 and masters degree in exploration geophysics in 1978, both from Indian Institute of Technology, Kharagpur. After working in the industry for five years, he joined the University of Hawaii in 1983 and obtained a PhD degree in geophysics in 1987. After working as a post-doctoral researcher for three years at the University of Hawaii, in 1990 he joined Western Geophysical Company (now called WesternGeco). In 2005, he left WesternGeco and joined Chevron Energy Technology Company. Beginning Fall 2008, he joined the faculty of the University of Wyoming as a Professor of Geophysics. His research and teaching interests include all aspects of computational seismology and their application in reservoir characterization and carbon sequestration monitoring.',
+  },
+  {
+    name: 'Partha S. Routh',
+    bio: 'Partha Routh received his masters degree in exploration geophysics in 1993 from Indian Institute of Technology, Kharagpur. He completed his PhD in 1999 from University of British Columbia, Canada. Presently he is working as Senior Research Geophysicist at ExxonMobil, URC, Houston. His research and teaching interests include modeling and inversion of electromagnetic data as well as seismic data.',
+  },
+  {
+    name: 'Raghu K. Chunduru',
+    bio: 'Raghu K. Chunduru is a Senior Geophysicist at Shell. Prior to joining at Shell he worked as a research scientist at Baker Hughes for five and half years. He received his M.Sc.(Tech) (1989) in Geophysics from Osmania University and M.S. (1992) in Applied Physics from University of New Orleans. He received his Ph.D. (1996) in Geophysics from The University of Texas at Austin. He holds five patents and authored and co-authored in several technical publications. His experience includes Geophysical Inversion, Borehole Geophysics, Quantitative Interpretation, and Pore Pressure Prediction.',
+  },
+  {
+    name: 'Sudarshan Singh',
+    bio: 'Sudarshan Singh received his Bachelors degree with honors in Geological Sciences in 1968 and Masters degree in Exploration Geophysics in 1970, both from Indian Institute of Technology, Kharagpur. After obtaining MS degree in Geophysics from the University of Minnesota in 1972, Sudarshan taught for four years at the University of Roorkee, Roorkee. He then joined St. Louis University, St. Louis and obtained a PhD degree in Geophysics in 1981. He joined ExxonMobil in 1981 and after working in exploration, research and several overseas assignments, he is currently a Geophysical Advisor at ExxonMobil’s Iraq Operations based in Dubai, UAE. His experience includes Geophysical acquisition & processing, Borehole Geophysics and Geophysical Operations in both onshore and offshore seismic surveys.',
+  },
+];
+
+
+export default function BoardPage() {
+  return (
+    <Container maxWidth="md" sx={{ marginTop: 4 }}>
+      {/* Office Bearers Section */}
+      <Box sx={{ mb: 4 }}>
+        <Typography variant="h5" component="h1" sx={{ fontWeight: 'bold', marginBottom: 2 }}>
+          Office Bearers (2019 - 2021):
+        </Typography>
+        <Grid container spacing={4}>
+      <Grid item xs={12} sm={6} md={6}>
+        <OfficeBearerCard
+          title="President"
+          name="Gopal Mohapatra"
+          affiliation="Hess Corporation, Houston"
+        />
+      </Grid>
+      <Grid item xs={12} sm={6} md={6}>
+        <OfficeBearerCard
+          title="General Secretary"
+          name="Sanjay Sood"
+          affiliation="Shearwater GeoServices, Houston"
+        />
+      </Grid>
+      {/* Add more OfficeBearerCard components as needed */}
+    </Grid>
+
+        {/* <Grid container spacing={2}>
+          <Grid item xs={4}>
+            <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+              President
+            </Typography>
+          </Grid>
+          <Grid item xs={8}>
+          <Typography variant="body2"sx={{ fontWeight: 'bold' }}>
+              Gopal Mohapatra
+            </Typography>
+            <Typography variant="body2">
+              Hess Corporation, Houston
+            </Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+              General Secretary
+            </Typography>
+          </Grid>
+          <Grid item xs={8}>
+          <Typography variant="body2"sx={{ fontWeight: 'bold' }}>
+              Sanjay Sood
+            </Typography>
+            <Typography variant="body2">
+               ConocoPhillips, Houston
+            </Typography>
+          </Grid>
+        </Grid> */}
+
+        <Divider sx={{ my: 3 }} />
+
+        {/* Advisors Section */}
+      <Box sx={{ mb: 4 }}>
+      <Typography variant="h5" component="h2" sx={{ fontWeight: 'bold', marginBottom: 3 }}>
+        Board Advisors:
+      </Typography>
+      <Grid container spacing={4}>
+        {advisors.map((advisor, index) => (
+          <Grid item xs={12} sm={6} md={4} key={index}>
+            <AdvisorCard
+              name={advisor.name}
+              bio={advisor.bio}
+            />
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
+
+    <Divider sx={{ my: 3 }} />
+
+        {/* Previous Office Bearers Section */}
+        <Typography variant="h5" component="h2" sx={{ fontWeight: 'bold', marginBottom: 2 }}>
+          Previous Office Bearers
+        </Typography>
+
+        <PreviousOfficersTable />
+      </Box>
+
+      
+
+      
+    </Container>
+  );
+}
