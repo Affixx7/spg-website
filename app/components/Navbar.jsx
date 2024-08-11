@@ -1,4 +1,5 @@
-"use client";
+'use client';
+
 import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,16 +14,12 @@ import ListItemText from '@mui/material/ListItemText';
 import Image from 'next/image';
 import Typography from '@mui/material/Typography';
 import { useRouter } from 'next/navigation';
-import DropdownAbout from './DropdownAbout';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
+import DropdownAbout from './DropdownAbout'; // Adjust the path as necessary
 
 const Navbar = () => {
-  const [anchorEl, setAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null); // For About Us dropdown
   const router = useRouter();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md")); // Checks if the screen size is 'md' or smaller
 
   const menuItems = [
     { title: 'Societies', path: '/societies' },
@@ -39,16 +36,16 @@ const Navbar = () => {
     setDrawerOpen(false); // Close the drawer on navigation
   };
 
+  const toggleDrawer = () => {
+    setDrawerOpen(!drawerOpen);
+  };
+
   const handleAboutClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget); // Toggle the dropdown
   };
 
   const handleDropdownClose = () => {
     setAnchorEl(null); // Close the dropdown
-  };
-
-  const toggleDrawer = () => {
-    setDrawerOpen(!drawerOpen);
   };
 
   return (
@@ -58,9 +55,10 @@ const Navbar = () => {
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <IconButton sx={{ padding: 0 }}>
               <Image
-                src="/spg_empty1.svg" // Ensure this path is correct relative to the public directory
-                width={59} // Adjust the size as needed
-                height={70} // Adjust the size as needed
+                src="/spg_empty1.svg"
+                alt="SPG Logo"
+                width={59}
+                height={70}
                 style={{
                   marginTop: 20,
                   marginBottom: 20,
@@ -80,67 +78,64 @@ const Navbar = () => {
             </Box>
           </Box>
 
-          {/* Conditional rendering based on screen size */}
-          {isMobile ? (
-            // Hamburger Menu Icon for Mobile
-            <IconButton
-              edge="end"
+          {/* Menu Items for Desktop */}
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            <Button
               color="inherit"
-              aria-label="menu"
-              onClick={toggleDrawer}
-              sx={{ display: { ml: 20, xs: 'flex', md: 'none' } }}
+              sx={{
+                textTransform: 'none',
+                '&:hover': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                },
+              }}
+              onClick={() => handleNavigation('/')}
             >
-              <MenuIcon />
-            </IconButton>
-          ) : (
-            // Menu Items for Desktop
-            <Box sx={{ display: 'flex' }}>
+              Home
+            </Button>
+            <Button
+              color="inherit"
+              sx={{
+                textTransform: 'none',
+                '&:hover': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                },
+              }}
+              onClick={handleAboutClick}
+            >
+              About Us
+            </Button>
+            <DropdownAbout
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              handleClose={handleDropdownClose}
+            />
+            {menuItems.map((item, index) => (
               <Button
+                key={index}
                 color="inherit"
                 sx={{
                   textTransform: 'none',
                   '&:hover': {
-                    backgroundColor: 'rgba(255, 255, 255, 0.1)', // Lighter background color on hover
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
                   },
                 }}
-                onClick={() => handleNavigation('/')}
+                onClick={() => handleNavigation(item.path)}
               >
-                Home
+                {item.title}
               </Button>
-              <Button
-                color="inherit"
-                sx={{
-                  textTransform: 'none',
-                  '&:hover': {
-                    backgroundColor: 'rgba(255, 255, 255, 0.1)', // Lighter background color on hover
-                  },
-                }}
-                onClick={handleAboutClick}
-              >
-                About Us
-              </Button>
-              <DropdownAbout
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                handleClose={handleDropdownClose}
-              />
-              {menuItems.map((item, index) => (
-                <Button
-                  key={index}
-                  color="inherit"
-                  sx={{
-                    textTransform: 'none',
-                    '&:hover': {
-                      backgroundColor: 'rgba(255, 255, 255, 0.1)', // Lighter background color on hover
-                    },
-                  }}
-                  onClick={() => handleNavigation(item.path)}
-                >
-                  {item.title}
-                </Button>
-              ))}
-            </Box>
-          )}
+            ))}
+          </Box>
+
+          {/* Hamburger Menu Icon for Mobile */}
+          <IconButton
+            edge="end"
+            color="inherit"
+            aria-label="menu"
+            onClick={toggleDrawer}
+            sx={{ display: { xs: 'flex', md: 'none' } }}
+          >
+            <MenuIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
 
@@ -159,9 +154,17 @@ const Navbar = () => {
           <ListItem button onClick={() => handleNavigation('/')}>
             <ListItemText primary="Home" />
           </ListItem>
+
+          {/* Expandable About Us Section for Mobile */}
           <ListItem button onClick={handleAboutClick}>
             <ListItemText primary="About Us" />
           </ListItem>
+          <DropdownAbout
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            handleClose={handleDropdownClose}
+          />
+
           {menuItems.map((item, index) => (
             <ListItem button key={index} onClick={() => handleNavigation(item.path)}>
               <ListItemText primary={item.title} />
