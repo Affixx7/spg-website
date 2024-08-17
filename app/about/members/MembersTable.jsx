@@ -96,7 +96,7 @@ const MembersTable = () => {
               <TableCell>Name</TableCell>
               <TableCell>Affiliation</TableCell>
               <TableCell>Expertise</TableCell>
-              <TableCell>Contact</TableCell>
+              {/* <TableCell>Contact</TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -105,7 +105,7 @@ const MembersTable = () => {
                 <TableCell>{member.name}</TableCell>
                 <TableCell>{member.affiliation}</TableCell>
                 <TableCell>{member.expertise}</TableCell>
-                <TableCell>{member.contact}</TableCell>
+                {/* <TableCell>{member.contact}</TableCell> */}
               </TableRow>
             ))}
           </TableBody>
