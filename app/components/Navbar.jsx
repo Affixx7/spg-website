@@ -48,10 +48,11 @@ function ElevationScroll({ children }) {
     elevation: trigger ? 4 : 0,
     sx: {
       ...children.props.sx,
-      backgroundColor: 'rgba(18, 52, 86, 0.05)',
+      backgroundColor: 'white',
       color: '#123456',
-      backdropFilter: trigger ? 'blur(20px)' : 'blur(10px)',
+      backdropFilter: 'blur(10px)',
       transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+      borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
     }
   });
 }
@@ -62,6 +63,8 @@ const Navbar = () => {
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
+
+
 
   const menuItems = [
     { title: 'Home', path: '/', icon: <HomeIcon /> },
@@ -100,12 +103,6 @@ const Navbar = () => {
       <ElevationScroll>
         <AppBar
           position="sticky"
-          sx={{
-            backgroundColor: 'rgba(18, 52, 86, 0.05)',
-            color: '#123456',
-            backdropFilter: 'blur(10px)',
-            borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
-          }}
         >
           <Container maxWidth="xl">
             <Toolbar
@@ -158,7 +155,7 @@ const Navbar = () => {
                     variant="h6"
                     sx={{
                       fontWeight: 700,
-                      color: '#123456',
+                      color: 'inherit',
                       lineHeight: 1.2,
                     }}
                   >
@@ -167,7 +164,8 @@ const Navbar = () => {
                   <Typography
                     variant="caption"
                     sx={{
-                      color: 'rgba(18, 52, 86, 0.7)',
+                      color: 'inherit',
+                      opacity: 0.7,
                       fontWeight: 500,
                     }}
                   >
@@ -185,7 +183,8 @@ const Navbar = () => {
                 <Button
                   onClick={() => handleNavigation('/')}
                   sx={{
-                    color: isActive('/') ? '#123456' : 'rgba(18, 52, 86, 0.7)',
+                    color: 'inherit',
+                    opacity: isActive('/') ? 1 : 0.7,
                     fontWeight: isActive('/') ? 700 : 600,
                     px: 2,
                     position: 'relative',
@@ -197,12 +196,12 @@ const Navbar = () => {
                       transform: 'translateX(-50%)',
                       width: isActive('/') ? '80%' : '0%',
                       height: '3px',
-                      backgroundColor: '#123456',
+                      backgroundColor: 'currentColor',
                       borderRadius: '2px 2px 0 0',
                       transition: 'width 0.3s ease',
                     },
                     '&:hover': {
-                      color: '#123456',
+                      opacity: 1,
                     },
                     '&:hover::after': {
                       width: '80%',
@@ -216,11 +215,12 @@ const Navbar = () => {
                   onClick={handleAboutClick}
                   endIcon={<ExpandMoreIcon />}
                   sx={{
-                    color: pathname?.startsWith('/about') ? '#123456' : 'rgba(18, 52, 86, 0.7)',
+                    color: 'inherit',
+                    opacity: pathname?.startsWith('/about') ? 1 : 0.7,
                     fontWeight: pathname?.startsWith('/about') ? 700 : 600,
                     px: 2,
                     '&:hover': {
-                      color: '#123456',
+                      opacity: 1,
                     },
                   }}
                 >
@@ -237,7 +237,8 @@ const Navbar = () => {
                     key={index}
                     onClick={() => handleNavigation(item.path)}
                     sx={{
-                      color: isActive(item.path) ? '#123456' : 'rgba(18, 52, 86, 0.7)',
+                      color: 'inherit',
+                      opacity: isActive(item.path) ? 1 : 0.7,
                       fontWeight: isActive(item.path) ? 700 : 600,
                       px: 2,
                       position: 'relative',
@@ -249,12 +250,12 @@ const Navbar = () => {
                         transform: 'translateX(-50%)',
                         width: isActive(item.path) ? '80%' : '0%',
                         height: '3px',
-                        backgroundColor: '#123456',
+                        backgroundColor: 'currentColor',
                         borderRadius: '2px 2px 0 0',
                         transition: 'width 0.3s ease',
                       },
                       '&:hover': {
-                        color: '#123456',
+                        opacity: 1,
                       },
                       '&:hover::after': {
                         width: '80%',
@@ -273,7 +274,7 @@ const Navbar = () => {
                 onClick={toggleDrawer}
                 sx={{
                   display: { xs: 'flex', md: 'none' },
-                  color: '#333333',
+                  color: 'inherit',
                 }}
                 aria-label="Open menu"
                 aria-expanded={drawerOpen}
