@@ -10,7 +10,8 @@ import {
   Link, 
   Divider, 
   Button,
-  Stack
+  Stack,
+  Chip
 } from '@mui/material';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -94,16 +95,29 @@ export default function Footer() {
                 </Box>
               </Box>
               
-              <Typography 
-                variant="body2" 
-                sx={{ 
-                  color: 'rgba(18, 52, 86, 0.7)', 
-                  lineHeight: 1.7,
-                  maxWidth: '300px'
+              <Chip
+                label="Fostering collaboration between Indian and American geoscientists through innovation, research, and professional excellence."
+                sx={{
+                  height: 'auto',
+                  py: 1.5,
+                  px: 2,
+                  backgroundColor: 'rgba(18, 52, 86, 0.08)',
+                  border: '1px solid rgba(18, 52, 86, 0.2)',
+                  borderRadius: '12px',
+                  '& .MuiChip-label': {
+                    display: 'block',
+                    whiteSpace: 'normal',
+                    color: 'rgba(18, 52, 86, 0.7)',
+                    fontSize: '0.875rem',
+                    lineHeight: 1.7,
+                    textAlign: 'left',
+                    padding: 0
+                  },
+                  '&:hover': {
+                    backgroundColor: 'rgba(18, 52, 86, 0.12)',
+                  }
                 }}
-              >
-                Fostering collaboration between Indian and American geoscientists through innovation, research, and professional excellence.
-              </Typography>
+              />
               
               <Stack direction="row" spacing={1}>
                 <IconButton

@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { Box, Container, Typography, Button, Grid, Card, CardContent, Chip, Avatar, Stack, Divider, Paper, List, ListItem, ListItemText } from '@mui/material';
-import ImageCardGrid from './components/ImageCardGrid';
+
 import GroupsIcon from '@mui/icons-material/Groups';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
@@ -28,17 +28,17 @@ const homeData = {
       "title": "Society of Petroleum Geophysicists"
     },
     {
-      "src": "/landing2.png",
+      "src": "/landing2.jpg",
       "alt": "Geophysics Research",
       "title": "Advancing Geoscience Excellence"
     },
     {
-      "src": "/landing3.webp",
+      "src": "/landing3.jpg",
       "alt": "Collaboration",
       "title": "Fostering Global Collaboration"
     },
     {
-      "src": "/landing4.jpg",
+      "src": "/landing4.jpeg",
       "alt": "Innovation",
       "title": "Innovation in Petroleum Geophysics"
     }
@@ -48,6 +48,14 @@ const homeData = {
 };
 
 export default function Home() {
+  const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % homeData.heroImages.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   const features = [
     {
@@ -115,57 +123,74 @@ export default function Home() {
       title: 'Research Support',
       description: 'Facilitating groundbreaking research in petroleum geophysics'
     }
-  ];  const stats = [
-    { value: '500+', label: 'Active Members', icon: <GroupsIcon />, color: '#123456' },
-    { value: '15+', label: 'Years Strong', icon: <TrendingUpIcon />, color: '#123456' },
-    { value: '50+', label: 'Publications', icon: <SchoolIcon />, color: '#123456' },
-    { value: '100%', label: 'Professional', icon: <VerifiedIcon />, color: '#123456' }
   ];
 
   return (
     <Box sx={{ minHeight: '100vh', background: '#fafafa', overflow: 'hidden' }}>
-      {/* Hero Section */}
+      {/* Hero Section with Image Carousel */}
       <Box
         component="section"
         aria-label="Hero section"
         sx={{
-          background: 'linear-gradient(135deg, #0b1e2e 0%, #123456 50%, #4a6b8a 100%)',
-          color: '#ffffff',
           position: 'relative',
           overflow: 'hidden',
-          pt: { xs: 12, md: 16 },
-          pb: { xs: 12, md: 20 },
-          '&::before': {
-            content: '""',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'linear-gradient(135deg, #123456 0%, #4a6b8a 100%)',
-            animation: 'backgroundFloat 20s ease-in-out infinite',
-          },
-          '@keyframes backgroundFloat': {
-            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
-            '33%': { transform: 'translateY(-10px) rotate(1deg)' },
-            '66%': { transform: 'translateY(5px) rotate(-0.5deg)' }
+          height: { xs: '700px', md: '700px' },
+          '@keyframes fadeIn': {
+            from: { opacity: 0 },
+            to: { opacity: 1 }
           }
         }}
       >
-        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-          <Grid container spacing={6} alignItems="center">
-            <Grid item xs={12} md={7}>
-              
-              
+        {/* Background Images */}
+        {homeData.heroImages.map((image, index) => (
+          <Box
+            key={image.src}
+            sx={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              opacity: currentImageIndex === index ? 1 : 0,
+              transition: 'opacity 1.5s ease-in-out',
+              backgroundImage: `url(${image.src})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              '&::after': {
+                content: '""',
+                position: 'absolute',
+                inset: 0,
+                background: 'linear-gradient(135deg, rgba(11, 30, 46, 0.85) 0%, rgba(18, 52, 86, 0.75) 50%, rgba(74, 107, 138, 0.65) 100%)'
+              }
+            }}
+          />
+        ))}
+
+        {/* Content Overlay */}
+        <Box
+          sx={{
+            position: 'relative',
+            zIndex: 1,
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            pt: { xs: 14, md: 16 },
+            pb: { xs: 8, md: 20 },
+            px: { xs: 2, md: 0 }
+          }}
+        >
+          <Container maxWidth="lg">
+            <Box sx={{ textAlign: 'center', maxWidth: '900px', mx: 'auto' }}>
               <Typography
                 variant="h1"
                 sx={{
                   color: 'white',
                   fontWeight: 900,
-                  mb: 3,
+                  mb: { xs: 2, md: 3 },
                   lineHeight: 1.1,
                   textShadow: '0 4px 20px rgba(0,0,0,0.2)',
-                  fontSize: { xs: '3rem', md: '4rem', lg: '4.5rem' },
+                  fontSize: { xs: '2.5rem', sm: '3rem', md: '4rem', lg: '4.5rem' },
                   animation: 'fadeInUp 0.8s ease-out 0.2s both',
                   letterSpacing: '-0.02em',
                 }}
@@ -175,10 +200,7 @@ export default function Home() {
                   component="span" 
                   sx={{ 
                     display: 'block', 
-                    background: 'linear-gradient(135deg, #ffffff 0%, rgba(255,255,255,0.8) 100%)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
+                    color: 'white',
                   }}
                 >
                   Geophysicists
@@ -186,7 +208,7 @@ export default function Home() {
                 <Typography
                   component="span"
                   sx={{
-                    fontSize: '1.5rem',
+                    fontSize: { xs: '1.1rem', md: '1.5rem' },
                     fontWeight: 500,
                     color: 'rgba(255,255,255,0.9)',
                     letterSpacing: '0.1em',
@@ -197,13 +219,17 @@ export default function Home() {
                 </Typography>
               </Typography>
               
-                            <Typography
-                variant="h4"
+              <Typography
+                variant="h5"
                 sx={{
                   color: '#ffffff',
                   fontWeight: 400,
-                  mb: 4,
-                  maxWidth: '600px'
+                  mb: { xs: 4, md: 5 },
+                  lineHeight: 1.6,
+                  mx: 'auto',
+                  maxWidth: '700px',
+                  fontSize: { xs: '1.1rem', md: '1.5rem' },
+                  px: { xs: 1, md: 0 }
                 }}
               >
                 Advancing petroleum geophysics through professional development, 
@@ -212,10 +238,16 @@ export default function Home() {
               
               <Stack
                 direction={{ xs: 'column', sm: 'row' }}
-                spacing={3}
-                sx={{ animation: 'fadeInUp 0.8s ease-out 0.6s both' }}
+                spacing={{ xs: 2, sm: -50 }}
+                sx={{ 
+                  animation: 'fadeInUp 0.8s ease-out 0.6s both',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: { xs: '100%', sm: 'auto' },
+                  px: { xs: 2, sm: 0 }
+                }}
               >
-                <Link href="/about/members" passHref style={{ textDecoration: 'none' }}>
+                <Link href="/about/members" passHref style={{ textDecoration: 'none', width: '100%', maxWidth: { xs: '100%', sm: 'auto' } }}>
                   <Button
                     variant="contained"
                     size="large"
@@ -229,6 +261,7 @@ export default function Home() {
                       fontWeight: 700,
                       borderRadius: '12px',
                       textTransform: 'none',
+                      width: { xs: '100%', sm: 'auto' },
                       '&:hover': {
                         backgroundColor: 'rgba(255,255,255,0.95)',
                         transform: 'translateY(-3px)',
@@ -239,141 +272,482 @@ export default function Home() {
                     Explore Community
                   </Button>
                 </Link>
-                <Button
-                  variant="outlined"
-                  size="large"
-                  component={Link}
-                  href="/contact"
-                  sx={{
-                    borderColor: 'white',
-                    borderWidth: 2,
-                    color: 'white',
-                    px: 4,
-                    py: 2,
-                    fontSize: '1.1rem',
-                    fontWeight: 700,
-                    borderRadius: '12px',
-                    textTransform: 'none',
-                    '&:hover': {
-                      borderWidth: 2,
+                <Link href="/contact" passHref style={{ textDecoration: 'none', width: '100%', maxWidth: { xs: '100%', sm: 'auto' } }}>
+                  <Button
+                    variant="outlined"
+                    size="large"
+                    sx={{
                       borderColor: 'white',
-                      backgroundColor: 'rgba(255,255,255,0.15)',
-                      backdropFilter: 'blur(20px)',
-                      transform: 'translateY(-3px)',
-                    }
-                  }}
-                >
-                  <EmailIcon sx={{ mr: 1 }} />
-                  Contact Us
-                </Button>
-              </Stack>
-            </Grid>
-
-            {/* Stats Cards */}
-            <Grid item xs={12} md={5}>
-              <Grid container spacing={2}>
-                {stats.map((stat, index) => (
-                  <Grid item xs={6} key={index}>
-                    <Card
-                      sx={{
-                        background: 'rgba(255, 255, 255, 0.25)',
-                        backdropFilter: 'blur(30px)',
-                        border: '1px solid rgba(255, 255, 255, 0.3)',
-                        color: '#ffffff',
-                        textAlign: 'center',
-                        py: 3,
-                        borderRadius: '16px',
-                        animation: `fadeInScale 0.6s ease-out ${0.8 + index * 0.1}s both`,
-                        '&:hover': {
-                          transform: 'translateY(-5px) scale(1.02)',
-                          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                          background: 'rgba(255, 255, 255, 0.35)',
-                        },
-                      }}
-                    >
-                      <CardContent>
-                        {React.cloneElement(stat.icon, { 
-                          sx: { 
-                            fontSize: 45, 
-                            mb: 2, 
-                            color: '#ffffff',
-                            filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))'
-                          } 
-                        })}
-                        <Typography variant="h3" sx={{ fontWeight: 900, mb: 0.5, fontSize: '2.5rem', color: '#ffffff' }}>
-                          {stat.value}
-                        </Typography>
-                        <Typography variant="body1" sx={{ color: '#ffffff', opacity: 0.95, fontWeight: 600 }}>
-                          {stat.label}
-                        </Typography>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                ))}
-              </Grid>
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
-
-      {/* Content Section */}
-      <Container maxWidth="lg" sx={{ py: { xs: 6, md: 8 } }}>
-        <Grid container spacing={4}>
-          {spgFeatures.map((feature, index) => (
-            <Grid item xs={12} md={6} key={index}>
-              <Paper 
-                elevation={3} 
-                sx={{ 
-                  p: { xs: 4, md: 5 }, 
-                  borderRadius: 3,
-                  background: 'white',
-                  height: '100%',
-                  transition: 'all 0.3s ease',
-                  '&:hover': {
-                    transform: 'translateY(-4px)',
-                    boxShadow: '0px 12px 24px rgba(18, 52, 86, 0.15)',
-                  }
-                }}
-              >
-                <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-                  <Box sx={{ color: '#123456', mr: 2 }}>
-                    {React.cloneElement(feature.icon, { sx: { fontSize: 32 } })}
-                  </Box>
-                  <Typography variant="h5" component="h3" sx={{ fontWeight: 700, color: '#123456' }}>
-                    {feature.title}
-                  </Typography>
-                </Box>
-                <List sx={{ p: 0 }}>
-                  <ListItem 
-                    sx={{ 
-                      px: 0, 
-                      py: 1,
-                      '&::before': {
-                        content: '"✓"',
-                        color: '#123456',
-                        fontWeight: 'bold',
-                        fontSize: '1.1rem',
-                        mr: 2,
+                      borderWidth: 2,
+                      color: 'white',
+                      px: 4,
+                      py: 2,
+                      fontSize: '1.1rem',
+                      fontWeight: 700,
+                      borderRadius: '12px',
+                      textTransform: 'none',
+                      width: { xs: '100%', sm: 'auto' },
+                      '&:hover': {
+                        borderWidth: 2,
+                        borderColor: 'white',
+                        backgroundColor: 'rgba(255,255,255,0.15)',
+                        backdropFilter: 'blur(20px)',
+                        transform: 'translateY(-3px)',
                       }
                     }}
                   >
-                    <ListItemText 
-                      primary={
-                        <Typography variant="body1" sx={{ color: '#172B4D', lineHeight: 1.6 }}>
-                          {feature.description}
-                        </Typography>
-                      } 
-                    />
-                  </ListItem>
-                </List>
-              </Paper>
-            </Grid>
+                    <EmailIcon sx={{ mr: 1 }} />
+                    Contact Us
+                  </Button>
+                </Link>
+              </Stack>
+            </Box>
+          </Container>
+        </Box>
+
+        {/* Carousel Indicators */}
+        <Stack
+          direction="row"
+          spacing={1.5}
+          sx={{
+            position: 'absolute',
+            bottom: 32,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 2
+          }}
+        >
+          {homeData.heroImages.map((_, index) => (
+            <Box
+              key={index}
+              onClick={() => setCurrentImageIndex(index)}
+              sx={{
+                width: currentImageIndex === index ? 40 : 12,
+                height: 12,
+                borderRadius: 6,
+                backgroundColor: currentImageIndex === index ? '#ffffff' : 'rgba(255,255,255,0.4)',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  backgroundColor: 'rgba(255,255,255,0.7)'
+                }
+              }}
+            />
           ))}
-        </Grid>
-      </Container>
+        </Stack>
+      </Box>
+
+      {/* Our Vibrant Community */}
+      <Box 
+        component="section" 
+        aria-label="Community gallery" 
+        sx={{ 
+          py: { xs: 8, md: 8 },
+          background: 'linear-gradient(135deg, rgba(18, 52, 86, 0.02) 0%, rgba(74, 107, 138, 0.02) 100%)'
+        }}
+      >
+        <Container maxWidth="lg">
+          <Box sx={{ textAlign: 'center', mb: { xs: 6, md: 10 }, px: { xs: 2, md: 0 } }}>
+            <Typography
+              variant="h2"
+              sx={{
+                fontWeight: 900,
+                mb: { xs: 2, md: 3 },
+                color: 'text.primary',
+                fontSize: { xs: '2rem', sm: '2.5rem', md: '3.5rem' }
+              }}
+            >
+              Our Vibrant Community
+            </Typography>
+            <Typography
+              variant="h6"
+              sx={{
+                color: 'text.secondary',
+                maxWidth: '700px',
+                mx: 'auto',
+                fontWeight: 400,
+                lineHeight: 1.7
+              }}
+            >
+              Join a network of distinguished petroleum geophysics professionals making groundbreaking contributions
+            </Typography>
+          </Box>
+          
+          {/* Colorful Feature Cards - 3 Cards Only */}
+          <Grid container spacing={{ xs: 2, sm: 3 }} justifyContent="center" sx={{ maxWidth: '1200px', mx: 'auto', px: { xs: 2, sm: 3, md: 0 } }}>
+            <Grid item xs={12} sm={6} md={4} sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Card
+                sx={{
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  position: 'relative',
+                  height: 'auto',
+                  background: 'linear-gradient(135deg, rgba(123, 97, 255, 0.9) 0%, rgba(157, 132, 255, 0.9) 100%)',
+                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  cursor: 'pointer',
+                  '&:hover': {
+                    transform: 'translateY(-8px) scale(1.02)',
+                    boxShadow: '0 20px 40px rgba(0,0,0,0.25)',
+                  },
+                }}
+              >
+                <CardContent sx={{ 
+                  height: '100%', 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  justifyContent: 'flex-end',
+                  p: 2.5,
+                  position: 'relative',
+                  zIndex: 2
+                }}>
+                  <Typography 
+                    variant="h6" 
+                    sx={{ 
+                      color: 'white',
+                      fontWeight: 700,
+                      textShadow: '0 2px 8px rgba(0,0,0,0.3)',
+                      fontSize: { xs: '1rem', sm: '1.1rem' },
+                      lineHeight: 1.3
+                    }}
+                  >
+                    Advancing Geoscience Excellence
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            
+            <Grid item xs={12} sm={6} md={4} sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Card
+                sx={{
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  position: 'relative',
+                  height: 'auto',
+                  background: 'linear-gradient(135deg, rgba(0, 135, 90, 0.9) 0%, rgba(54, 179, 126, 0.9) 100%)',
+                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  cursor: 'pointer',
+                  '&:hover': {
+                    transform: 'translateY(-8px) scale(1.02)',
+                    boxShadow: '0 20px 40px rgba(0,0,0,0.25)',
+                  },
+                }}
+              >
+                <CardContent sx={{ 
+                  height: '100%', 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  justifyContent: 'flex-end',
+                  p: 2.5,
+                  position: 'relative',
+                  zIndex: 2
+                }}>
+                  <Typography 
+                    variant="h6" 
+                    sx={{ 
+                      color: 'white',
+                      fontWeight: 700,
+                      textShadow: '0 2px 8px rgba(0,0,0,0.3)',
+                      fontSize: { xs: '1rem', sm: '1.1rem' },
+                      lineHeight: 1.3
+                    }}
+                  >
+                    Fostering Global Collaboration
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            
+            <Grid item xs={12} sm={6} md={4} sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Card
+                sx={{
+                  borderRadius: '16px',
+                  overflow: 'hidden',
+                  position: 'relative',
+                  height: 'auto',
+                  background: 'linear-gradient(135deg, rgba(255, 107, 53, 0.9) 0%, rgba(255, 149, 77, 0.9) 100%)',
+                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  cursor: 'pointer',
+                  '&:hover': {
+                    transform: 'translateY(-8px) scale(1.02)',
+                    boxShadow: '0 20px 40px rgba(0,0,0,0.25)',
+                  },
+                }}
+              >
+                <CardContent sx={{ 
+                  height: '100%', 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  justifyContent: 'flex-end',
+                  p: 2.5,
+                  position: 'relative',
+                  zIndex: 2
+                }}>
+                  <Typography 
+                    variant="h6" 
+                    sx={{ 
+                      color: 'white',
+                      fontWeight: 700,
+                      textShadow: '0 2px 8px rgba(0,0,0,0.3)',
+                      fontSize: { xs: '1rem', sm: '1.1rem' },
+                      lineHeight: 1.3
+                    }}
+                  >
+                    Innovation in Petroleum Geophysics
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+          
+          {/* Feature Cards from Image */}
+          <Box sx={{ mt: 8 }}>
+            <Grid container spacing={4}>
+              <Grid item xs={12} md={6}>
+                <Paper
+                  elevation={3}
+                  sx={{
+                    p: 4,
+                    borderRadius: '16px',
+                    height: '100%',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      transform: 'translateY(-4px)',
+                      boxShadow: '0 12px 24px rgba(18, 52, 86, 0.15)',
+                    }
+                  }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                    <DesignServicesIcon sx={{ fontSize: 32, color: '#123456', mr: 2 }} />
+                    <Typography variant="h5" sx={{ fontWeight: 700, color: '#123456' }}>
+                      Professional Development
+                    </Typography>
+                  </Box>
+                  <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
+                    <Box 
+                      sx={{ 
+                        color: '#123456', 
+                        mr: 2, 
+                        mt: 0.5,
+                        '&::before': {
+                          content: '"✓"',
+                          fontWeight: 'bold',
+                          fontSize: '1.1rem'
+                        }
+                      }} 
+                    />
+                    <Typography variant="body1" sx={{ color: '#172B4D', lineHeight: 1.6 }}>
+                      Advancing geophysical knowledge through education and networking
+                    </Typography>
+                  </Box>
+                </Paper>
+              </Grid>
+
+              <Grid item xs={12} md={6}>
+                <Paper
+                  elevation={3}
+                  sx={{
+                    p: 4,
+                    borderRadius: '16px',
+                    height: '100%',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      transform: 'translateY(-4px)',
+                      boxShadow: '0 12px 24px rgba(18, 52, 86, 0.15)',
+                    }
+                  }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                    <CodeIcon sx={{ fontSize: 32, color: '#123456', mr: 2 }} />
+                    <Typography variant="h5" sx={{ fontWeight: 700, color: '#123456' }}>
+                      Technical Excellence
+                    </Typography>
+                  </Box>
+                  <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
+                    <Box 
+                      sx={{ 
+                        color: '#123456', 
+                        mr: 2, 
+                        mt: 0.5,
+                        '&::before': {
+                          content: '"✓"',
+                          fontWeight: 'bold',
+                          fontSize: '1.1rem'
+                        }
+                      }} 
+                    />
+                    <Typography variant="body1" sx={{ color: '#172B4D', lineHeight: 1.6 }}>
+                      Promoting best practices in geophysical exploration and research
+                    </Typography>
+                  </Box>
+                </Paper>
+              </Grid>
+
+              <Grid item xs={12} md={6}>
+                <Paper
+                  elevation={3}
+                  sx={{
+                    p: 4,
+                    borderRadius: '16px',
+                    height: '100%',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      transform: 'translateY(-4px)',
+                      boxShadow: '0 12px 24px rgba(18, 52, 86, 0.15)',
+                    }
+                  }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                    <AccessibilityNewIcon sx={{ fontSize: 32, color: '#123456', mr: 2 }} />
+                    <Typography variant="h5" sx={{ fontWeight: 700, color: '#123456' }}>
+                      Community Engagement
+                    </Typography>
+                  </Box>
+                  <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
+                    <Box 
+                      sx={{ 
+                        color: '#123456', 
+                        mr: 2, 
+                        mt: 0.5,
+                        '&::before': {
+                          content: '"✓"',
+                          fontWeight: 'bold',
+                          fontSize: '1.1rem'
+                        }
+                      }} 
+                    />
+                    <Typography variant="body1" sx={{ color: '#172B4D', lineHeight: 1.6 }}>
+                      Fostering collaboration among geophysicists and industry professionals
+                    </Typography>
+                  </Box>
+                </Paper>
+              </Grid>
+
+              <Grid item xs={12} md={6}>
+                <Paper
+                  elevation={3}
+                  sx={{
+                    p: 4,
+                    borderRadius: '16px',
+                    height: '100%',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      transform: 'translateY(-4px)',
+                      boxShadow: '0 12px 24px rgba(18, 52, 86, 0.15)',
+                    }
+                  }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                    <SpeedIcon sx={{ fontSize: 32, color: '#123456', mr: 2 }} />
+                    <Typography variant="h5" sx={{ fontWeight: 700, color: '#123456' }}>
+                      Industry Innovation
+                    </Typography>
+                  </Box>
+                  <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
+                    <Box 
+                      sx={{ 
+                        color: '#123456', 
+                        mr: 2, 
+                        mt: 0.5,
+                        '&::before': {
+                          content: '"✓"',
+                          fontWeight: 'bold',
+                          fontSize: '1.1rem'
+                        }
+                      }} 
+                    />
+                    <Typography variant="body1" sx={{ color: '#172B4D', lineHeight: 1.6 }}>
+                      Supporting technological advancement in geophysical sciences
+                    </Typography>
+                  </Box>
+                </Paper>
+              </Grid>
+
+              <Grid item xs={12} md={6}>
+                <Paper
+                  elevation={3}
+                  sx={{
+                    p: 4,
+                    borderRadius: '16px',
+                    height: '100%',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      transform: 'translateY(-4px)',
+                      boxShadow: '0 12px 24px rgba(18, 52, 86, 0.15)',
+                    }
+                  }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                    <DevicesIcon sx={{ fontSize: 32, color: '#123456', mr: 2 }} />
+                    <Typography variant="h5" sx={{ fontWeight: 700, color: '#123456' }}>
+                      Educational Resources
+                    </Typography>
+                  </Box>
+                  <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
+                    <Box 
+                      sx={{ 
+                        color: '#123456', 
+                        mr: 2, 
+                        mt: 0.5,
+                        '&::before': {
+                          content: '"✓"',
+                          fontWeight: 'bold',
+                          fontSize: '1.1rem'
+                        }
+                      }} 
+                    />
+                    <Typography variant="body1" sx={{ color: '#172B4D', lineHeight: 1.6 }}>
+                      Providing learning opportunities for current and future geophysicists
+                    </Typography>
+                  </Box>
+                </Paper>
+              </Grid>
+
+              <Grid item xs={12} md={6}>
+                <Paper
+                  elevation={3}
+                  sx={{
+                    p: 4,
+                    borderRadius: '16px',
+                    height: '100%',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      transform: 'translateY(-4px)',
+                      boxShadow: '0 12px 24px rgba(18, 52, 86, 0.15)',
+                    }
+                  }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+                    <AnimationIcon sx={{ fontSize: 32, color: '#123456', mr: 2 }} />
+                    <Typography variant="h5" sx={{ fontWeight: 700, color: '#123456' }}>
+                      Research Support
+                    </Typography>
+                  </Box>
+                  <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
+                    <Box 
+                      sx={{ 
+                        color: '#123456', 
+                        mr: 2, 
+                        mt: 0.5,
+                        '&::before': {
+                          content: '"✓"',
+                          fontWeight: 'bold',
+                          fontSize: '1.1rem'
+                        }
+                      }} 
+                    />
+                    <Typography variant="body1" sx={{ color: '#172B4D', lineHeight: 1.6 }}>
+                      Facilitating groundbreaking research in petroleum geophysics
+                    </Typography>
+                  </Box>
+                </Paper>
+              </Grid>
+            </Grid>
+          </Box>
+        </Container>
+      </Box>
 
       {/* Organization Highlights Section */}
-      <Container maxWidth="lg" sx={{ py: { xs: 6, md: 8 } }}>
+      <Container maxWidth="lg" sx={{ py: { xs: 8, md: 10 } }}>
         <Box sx={{ textAlign: 'center', mb: 6 }}>
           <Typography
             variant="h4"
@@ -453,45 +827,6 @@ export default function Home() {
           ))}
         </Grid>
       </Container>
-
-      {/* Gallery Section */}
-      <Box 
-        component="section" 
-        aria-label="Community gallery" 
-        sx={{ 
-          py: { xs: 6, md: 8 },
-          background: 'linear-gradient(135deg, rgba(18, 52, 86, 0.02) 0%, rgba(74, 107, 138, 0.02) 100%)'
-        }}
-      >
-        <Container maxWidth="lg">
-          <Box sx={{ textAlign: 'center', mb: 10 }}>
-            <Typography
-              variant="h2"
-              sx={{
-                fontWeight: 900,
-                mb: 3,
-                color: 'text.primary',
-                fontSize: { xs: '2.5rem', md: '3.5rem' }
-              }}
-            >
-              Our Vibrant Community
-            </Typography>
-            <Typography
-              variant="h6"
-              sx={{
-                color: 'text.secondary',
-                maxWidth: '700px',
-                mx: 'auto',
-                fontWeight: 400,
-                lineHeight: 1.7
-              }}
-            >
-              Join a network of distinguished petroleum geophysics professionals making groundbreaking contributions
-            </Typography>
-          </Box>
-          <ImageCardGrid heroImages={homeData.heroImages} />
-        </Container>
-      </Box>
 
       {/* Call to Action */}
       <Box
@@ -593,44 +928,7 @@ export default function Home() {
             </Button>
           </Stack>
 
-          {/* Trust Indicators */}
-          <Box sx={{ 
-            display: 'flex', 
-            justifyContent: 'center', 
-            alignItems: 'center',
-            gap: { xs: 3, md: 6 },
-            mt: 8, 
-            maxWidth: '600px', 
-            mx: 'auto',
-            flexWrap: 'wrap'
-          }}>
-            {stats.map((stat, index) => (
-              <Box key={index} sx={{ 
-                textAlign: 'center',
-                flex: '1 1 auto',
-                minWidth: '120px',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center'
-              }}>
-                <Typography variant="h3" sx={{ 
-                  color: 'white', 
-                  fontWeight: 900, 
-                  mb: 1,
-                  fontSize: { xs: '2rem', md: '2.5rem' }
-                }}>
-                  {stat.value}
-                </Typography>
-                <Typography variant="body2" sx={{ 
-                  color: 'rgba(255,255,255,0.9)', 
-                  fontWeight: 600,
-                  fontSize: '0.9rem'
-                }}>
-                  {stat.label}
-                </Typography>
-              </Box>
-            ))}
-          </Box>
+
         </Container>
       </Box>
 
