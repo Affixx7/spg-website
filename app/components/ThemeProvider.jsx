@@ -11,17 +11,17 @@ const theme = createTheme({
       main: '#123456',
     },
     secondary: {
-      main: '#654321',
+      main: '#123456', // Changed to match theme
     },
     background: {
-      default: '#f5f5f5',
+      default: 'rgba(18, 52, 86, 0.02)', // Changed to theme
     },
     text: {
-      primary: '#333333',
-      secondary: '#555555',
+      primary: '#123456', // Changed to theme
+      secondary: 'rgba(18, 52, 86, 0.7)', // Changed to theme
     },
     error: {
-      main: '#ff0000',
+      main: '#4a6b8a', // Changed to theme gradient color
     },
   },
   typography: {
@@ -34,15 +34,15 @@ const theme = createTheme({
     h2: {
       fontSize: '1.5rem',
       fontWeight: 700,
-      color: '#654321',
+      color: '#123456', // Changed to theme
     },
     body1: {
       fontSize: '1rem',
-      color: '#333333',
+      color: '#123456', // Changed to theme
     },
     body2: {
       fontSize: '0.875rem',
-      color: '#555555',
+      color: 'rgba(18, 52, 86, 0.7)', // Changed to theme
     },
   },
   components: {

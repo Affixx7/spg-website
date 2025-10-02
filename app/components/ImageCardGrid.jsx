@@ -5,73 +5,141 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
-function ImageCard({ image, title, link, borderColor }) {
+function ImageCard({ image, title, alt, index }) {
+  const gradients = [
+    'linear-gradient(135deg, rgba(10, 102, 194, 0.8) 0%, rgba(74, 144, 226, 0.8) 100%)',
+    'linear-gradient(135deg, rgba(123, 97, 255, 0.8) 0%, rgba(157, 132, 255, 0.8) 100%)',
+    'linear-gradient(135deg, rgba(0, 135, 90, 0.8) 0%, rgba(54, 179, 126, 0.8) 100%)',
+    'linear-gradient(135deg, rgba(255, 107, 53, 0.8) 0%, rgba(255, 149, 77, 0.8) 100%)'
+  ];
+
   return (
     <Card
       sx={{
+        borderRadius: '20px',
+        overflow: 'hidden',
+        position: 'relative',
+        height: '300px',
+        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
         cursor: 'pointer',
-        border: `2px solid ${borderColor}`,
-        borderRadius: '8px',
-        overflow: 'hidden', // Ensure the image stays within the card
-        position: 'relative', // Required for the title to position correctly
+        boxShadow: '0 4px 20px rgba(23, 43, 77, 0.08)',
+        '&:hover': {
+          transform: 'translateY(-8px) scale(1.02)',
+          boxShadow: '0 20px 40px rgba(23, 43, 77, 0.15)',
+          '& .card-media': {
+            transform: 'scale(1.1)',
+          },
+          '& .overlay': {
+            background: gradients[index % gradients.length].replace('0.8', '0.6'),
+          },
+          '& .title': {
+            transform: 'translateY(-5px)',
+          }
+        },
       }}
     >
+      <CardMedia
+        component="img"
+        image={image}
+        alt={alt || title}
+        className="card-media"
+        sx={{
+          height: '100%',
+          width: '100%',
+          objectFit: 'cover',
+          transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+        }}
+      />
+      
+      {/* Gradient Overlay */}
+      <Box
+        className="overlay"
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: gradients[index % gradients.length],
+          transition: 'background 0.3s ease',
+        }}
+      />
+      
+      {/* Content */}
       <Box
         sx={{
-          position: 'relative',
-          height: '200px', // Set a fixed height for the card to maintain consistency
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          p: 3,
+          zIndex: 2,
         }}
       >
-        <CardMedia
-          component="img"
-          image={image}
-          alt={title}
-          className="card-media"
-          sx={{
-            height: '100%',
-            width: '100%',
-            objectFit: 'cover', // Ensure the image covers the entire area
-            transition: 'transform 0.3s ease-in-out', // Smooth transition for the zoom effect
-            '&:hover': {
-              transform: 'scale(1.1)', // Slight zoom effect on hover
-            },
-          }}
-        />
-        <Box
-          sx={{
-            position: 'absolute',
-            bottom: 10,
-            left: 10,
+        <Typography 
+          variant="h6" 
+          className="title"
+          sx={{ 
             color: 'white',
-            zIndex: 1, // Ensure the text stays on top of the image
+            fontWeight: 800,
+            textShadow: '0 2px 8px rgba(0,0,0,0.3)',
+            transition: 'transform 0.3s ease',
+            fontSize: { xs: '1rem', sm: '1.25rem' }
           }}
         >
-          <Typography variant="h6" component="div" sx={{ fontWeight: 'bold' }}>
-            {title}
-          </Typography>
-        </Box>
+          {title}
+        </Typography>
+      </Box>
+      
+      {/* Decorative Element */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 20,
+          right: 20,
+          width: 60,
+          height: 60,
+          borderRadius: '50%',
+          background: 'rgba(255, 255, 255, 0.2)',
+          backdropFilter: 'blur(10px)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          transition: 'all 0.3s ease',
+          zIndex: 2,
+        }}
+      >
+        <Box
+          sx={{
+            width: 8,
+            height: 8,
+            borderRadius: '50%',
+            backgroundColor: 'white',
+            boxShadow: '0 0 20px rgba(255,255,255,0.5)',
+          }}
+        />
       </Box>
     </Card>
   );
 }
 
-export default function ImageCardGrid() {
-  const cardData = [
-    { image: '/landing1.jpg', title: 'Contractor Database', link: '#', borderColor: '#FFD700' },
-    { image: '/landing2.png', title: 'Publications', link: '#', borderColor: '#00FF00' },
-    { image: '/landing3.webp', title: 'Membership', link: '#', borderColor: '#FF0000' },
-    { image: '/landing4.jpg', title: 'Corporate Members', link: '#', borderColor: '#ADD8E6' },
+export default function ImageCardGrid({ heroImages }) {
+  const cardData = heroImages || [
+    { src: '/landing1.jpg', title: 'SPG Conference', alt: 'SPG Conference' },
+    { src: '/landing2.png', title: 'Geophysics Research', alt: 'Geophysics Research' },
+    { src: '/landing3.webp', title: 'Global Collaboration', alt: 'Global Collaboration' },
+    { src: '/landing4.jpg', title: 'Innovation in Geophysics', alt: 'Innovation in Geophysics' },
   ];
 
   return (
-    <Grid container spacing={4} sx={{ padding: '20px' }}>
+    <Grid container spacing={4}>
       {cardData.map((card, index) => (
-        <Grid item xs={12} sm={6} md={4} key={index}>
+        <Grid item xs={12} sm={6} md={3} key={index}>
           <ImageCard
-            image={card.image}
+            image={card.src || card.image}
             title={card.title}
-            link={card.link}
-            borderColor={card.borderColor}
+            alt={card.alt}
+            index={index}
           />
         </Grid>
       ))}

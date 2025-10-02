@@ -1,0 +1,89 @@
+{
+  "faqs": [
+    {
+      "category": "Membership",
+      "questions": [
+        {
+          "question": "Who can become a member of SPG-NA?",
+          "answer": "Any geoscientist of Indian origin residing in North America who is engaged in the exploration, development, or management of petroleum and natural resources, or in related research and education activities, is eligible for membership."
+        },
+        {
+          "question": "How do I apply for membership?",
+          "answer": "You can apply for membership by contacting any of our office bearers or sending an email to the General Secretary with your details including name, current affiliation, area of expertise, and contact information."
+        },
+        {
+          "question": "Is there a membership fee?",
+          "answer": "Currently, SPG-NA does not charge any membership fees. The society is run by volunteers dedicated to serving the geoscience community."
+        },
+        {
+          "question": "What are the benefits of membership?",
+          "answer": "Members enjoy networking opportunities with Indian and American geoscientists, career guidance, recommendations for jobs and green card applications, access to research collaborations, eligibility for SPG-NA annual awards, and opportunities to publish in Geohorizons."
+        }
+      ]
+    },
+    {
+      "category": "Awards and Scholarships",
+      "questions": [
+        {
+          "question": "What awards does SPG-NA offer?",
+          "answer": "SPG-NA offers two annual awards: the Technical Achievement Award, which recognizes outstanding technical contributions, and the Honorary Member of the Year Award, which honors exceptional service to the community."
+        },
+        {
+          "question": "Does SPG-NA provide scholarships?",
+          "answer": "Yes, SPG-NA provides financial support to students and early-career professionals from India to attend and present at international conferences such as SEG, AGU, and other major geoscience meetings."
+        },
+        {
+          "question": "How can I apply for conference support?",
+          "answer": "Students and early-career researchers can apply by submitting their paper acceptance letter, conference details, and a brief statement explaining the financial need to the SPG-NA board for consideration."
+        }
+      ]
+    },
+    {
+      "category": "Collaboration and Networking",
+      "questions": [
+        {
+          "question": "How can I collaborate with SPG-NA members?",
+          "answer": "SPG-NA facilitates collaboration through annual meetings during SEG conferences, virtual networking events, and our member directory. Members can reach out directly to fellow members for research collaborations and professional guidance."
+        },
+        {
+          "question": "Does SPG-NA organize any events?",
+          "answer": "Yes, SPG-NA organizes an annual meeting during the SEG conference, technical workshops, and networking sessions. We also support short courses taught by our members in India during biannual SPG-India conferences."
+        },
+        {
+          "question": "How can I contribute to SPG-NA?",
+          "answer": "Members can contribute by volunteering for committee positions, mentoring students, presenting at technical sessions, writing articles for Geohorizons, or helping with organization of events."
+        }
+      ]
+    },
+    {
+      "category": "Publications and Research",
+      "questions": [
+        {
+          "question": "Can I publish in Geohorizons through SPG-NA?",
+          "answer": "Yes, SPG-NA members have the opportunity to publish technical articles, research papers, and case studies in Geohorizons, the journal of the Society of Petroleum Geophysicists, India."
+        },
+        {
+          "question": "What kind of research does SPG-NA support?",
+          "answer": "SPG-NA supports research in all areas of petroleum geophysics including seismic imaging, reservoir characterization, rock physics, borehole geophysics, electromagnetic methods, and computational geophysics."
+        }
+      ]
+    },
+    {
+      "category": "General",
+      "questions": [
+        {
+          "question": "What is the relationship between SPG-NA and SPG-India?",
+          "answer": "SPG-NA is the North American chapter of the Society of Petroleum Geophysicists, India (SPG-India). We maintain close ties and collaborate on educational initiatives, conferences, and knowledge exchange programs."
+        },
+        {
+          "question": "How can I stay updated with SPG-NA activities?",
+          "answer": "You can stay updated by joining our mailing list, following our announcements through member communications, and checking our website regularly for news and upcoming events."
+        },
+        {
+          "question": "Who should I contact for more information?",
+          "answer": "For general inquiries, please contact the General Secretary. For specific questions about membership, awards, or events, you can reach out to the relevant office bearers listed on our Board page."
+        }
+      ]
+    }
+  ]
+}

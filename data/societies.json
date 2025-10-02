@@ -1,0 +1,49 @@
+{
+  "societies": [
+    {
+      "name": "American Association of Petroleum Geologists",
+      "url": "https://www.aapg.org/",
+      "image": "/society1.jpeg"
+    },
+    {
+      "name": "Australian Society of Exploration Geophysicists",
+      "url": "https://www.aseg.org.au/",
+      "image": "/society2.png"
+    },
+    {
+      "name": "Canadian Society of Exploration Geophysicists",
+      "url": "https://cseg.ca/",
+      "image": "/society3.png"
+    },
+    {
+      "name": "European Association of Geoscientists & Engineers",
+      "url": "https://eage.org/",
+      "image": "/society4.webp"
+    },
+    {
+      "name": "Geophysical Society of Houston",
+      "url": "https://www.gshtx.org/",
+      "image": "/society5.jpeg"
+    },
+    {
+      "name": "Society of Exploration Geophysicists",
+      "url": "https://seg.org/",
+      "image": "/society6.png"
+    },
+    {
+      "name": "Society of Petroleum Engineers",
+      "url": "https://www.spe.org/en/",
+      "image": "/society7.png"
+    },
+    {
+      "name": "Society of Petroleum Geophysicists, India",
+      "url": "https://spgindia.org/",
+      "image": "/society8.jpg"
+    },
+    {
+      "name": "Society of Petrophysicists and Well Log Analysts",
+      "url": "https://www.spwla.org/",
+      "image": "/society9.jpg"
+    }
+  ]
+}

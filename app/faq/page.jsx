@@ -1,33 +1,22 @@
-import ImageCard from './ImageCard';
-import Grid from '@mui/material/Grid'
 import React from 'react';
-import { Container, Typography, List, ListItem, ListItemText, Box, Paper, Chip } from '@mui/material';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import PublicationIcon from '@mui/icons-material/MenuBook';
-import EventIcon from '@mui/icons-material/Event';
-import WorkIcon from '@mui/icons-material/Work';
-import SchoolIcon from '@mui/icons-material/School';
-import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
+import { Container, Typography, Box, Chip, Grid, Paper, CardContent } from '@mui/material';
+import QuizIcon from '@mui/icons-material/Quiz';
+import ContactSupportIcon from '@mui/icons-material/ContactSupport';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+
 import fs from 'fs';
 import path from 'path';
 
-// Fetch achievements data at build time
-async function getAchievementsData() {
-  const filePath = path.join(process.cwd(), 'data', 'achievements.json');
+// Fetch FAQ data at build time
+async function getFAQData() {
+  const filePath = path.join(process.cwd(), 'data', 'faq.json');
   const jsonData = fs.readFileSync(filePath, 'utf8');
   return JSON.parse(jsonData);
 }
 
-const ObjectivesSection = async () => {
-  const achievementsData = await getAchievementsData();
-  
-  const sections = [
-    { title: 'Publications', data: achievementsData.publications, icon: <PublicationIcon /> },
-    { title: 'Support for Conferences', data: achievementsData.conferenceSupport, icon: <EventIcon /> },
-    { title: 'Career Guidance', data: achievementsData.careerGuidance, icon: <WorkIcon /> },
-    { title: 'Educational Contributions', data: achievementsData.educationalContributions, icon: <SchoolIcon /> },
-  ];
-  
+export default async function FAQPage() {
+  const data = await getFAQData();
+
   return (
     <Box sx={{ minHeight: '100vh', background: '#fafafa' }}>
       {/* Hero Section */}
@@ -57,8 +46,8 @@ const ObjectivesSection = async () => {
         <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
           <Box sx={{ textAlign: 'center', maxWidth: '900px', mx: 'auto' }}>
             <Chip
-              icon={<EmojiEventsIcon sx={{ color: 'white !important' }} />}
-              label="Excellence in Geophysics"
+              icon={<HelpOutlineIcon sx={{ color: 'white !important' }} />}
+              label="Support Center"
               sx={{
                 backgroundColor: 'rgba(255, 255, 255, 0.2)',
                 color: 'white',
@@ -78,14 +67,14 @@ const ObjectivesSection = async () => {
               sx={{ 
                 fontWeight: 900, 
                 mb: 3,
-                background: 'linear-gradient(45deg, #ffffff 30%, #e3f2fd 90%)',
+                background: 'white',
                 backgroundClip: 'text',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 fontSize: { xs: '2.5rem', md: '3.5rem' }
               }}
             >
-              Our Achievements
+              Frequently Asked Questions
             </Typography>
             <Typography 
               variant="h6" 
@@ -98,7 +87,7 @@ const ObjectivesSection = async () => {
                 mx: 'auto'
               }}
             >
-              Celebrating excellence in geophysical research, education, and professional development across four decades of innovation.
+              Find answers to common questions about SPG-NA membership, awards, activities, and professional opportunities.
             </Typography>
 
             {/* Stats */}
@@ -117,7 +106,7 @@ const ObjectivesSection = async () => {
                 flex: '1 1 auto',
                 minWidth: '120px',
                 display: 'flex',
-                flexDirection: 'column',
+                flexDirection: 'column', 
                 alignItems: 'center'
               }}>
                 <Typography variant="h3" sx={{ 
@@ -126,14 +115,14 @@ const ObjectivesSection = async () => {
                   color: 'white',
                   fontSize: { xs: '2rem', md: '2.5rem' }
                 }}>
-                  {sections.length}
+                  {data.faqs.length}
                 </Typography>
                 <Typography variant="body2" sx={{ 
                   color: 'rgba(255,255,255,0.8)', 
                   fontWeight: 600,
                   fontSize: '0.9rem'
                 }}>
-                  Key Areas
+                  Questions
                 </Typography>
               </Box>
               <Box sx={{ 
@@ -150,14 +139,14 @@ const ObjectivesSection = async () => {
                   color: 'white',
                   fontSize: { xs: '2rem', md: '2.5rem' }
                 }}>
-                  40+
+                  24/7
                 </Typography>
                 <Typography variant="body2" sx={{ 
                   color: 'rgba(255,255,255,0.8)', 
                   fontWeight: 600,
                   fontSize: '0.9rem'
                 }}>
-                  Years Strong
+                  Available
                 </Typography>
               </Box>
               <Box sx={{ 
@@ -174,14 +163,14 @@ const ObjectivesSection = async () => {
                   color: 'white',
                   fontSize: { xs: '2rem', md: '2.5rem' }
                 }}>
-                  Global
+                  Quick
                 </Typography>
                 <Typography variant="body2" sx={{ 
                   color: 'rgba(255,255,255,0.8)', 
                   fontWeight: 600,
                   fontSize: '0.9rem'
                 }}>
-                  Recognition
+                  Answers
                 </Typography>
               </Box>
             </Box>
@@ -192,8 +181,8 @@ const ObjectivesSection = async () => {
       {/* Content Section */}
       <Container maxWidth="lg" sx={{ py: { xs: 6, md: 8 } }}>
         <Grid container spacing={4}>
-          {sections.map((section, sectionIndex) => (
-            <Grid item xs={12} md={6} key={sectionIndex}>
+          {data.faqs.map((category, categoryIndex) => (
+            <Grid item xs={12} md={6} key={categoryIndex}>
               <Paper 
                 elevation={3} 
                 sx={{ 
@@ -210,120 +199,99 @@ const ObjectivesSection = async () => {
               >
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
                   <Box sx={{ color: '#123456', mr: 2 }}>
-                    {section.icon}
+                    <HelpOutlineIcon />
                   </Box>
                   <Typography variant="h5" component="h3" sx={{ fontWeight: 700, color: '#123456' }}>
-                    {section.title}
+                    {category.category}
                   </Typography>
                 </Box>
-                <List sx={{ p: 0 }}>
-                  {section.data.map((item, index) => (
-                    <ListItem 
-                      key={index} 
-                      sx={{ 
-                        px: 0, 
-                        py: 1,
-                        '&::before': {
-                          content: '"✓"',
-                          color: '#123456',
-                          fontWeight: 'bold',
-                          fontSize: '1.1rem',
-                          mr: 2,
-                        }
-                      }}
-                    >
-                      <ListItemText 
-                        primary={
-                          <Typography variant="body1" sx={{ color: '#172B4D', lineHeight: 1.6 }}>
-                            {item}
-                          </Typography>
-                        } 
-                      />
-                    </ListItem>
+                <Box sx={{ mb: 3 }}>
+                  {category.questions.map((qa, qaIndex) => (
+                    <Box key={qaIndex} sx={{ mb: qaIndex < category.questions.length - 1 ? 3 : 0 }}>
+                      <Typography 
+                        variant="h6" 
+                        sx={{ 
+                          fontWeight: 600, 
+                          color: '#123456', 
+                          mb: 1, 
+                          fontSize: '1rem'
+                        }}
+                      >
+                        Q: {qa.question}
+                      </Typography>
+                      <Typography 
+                        variant="body1" 
+                        sx={{ 
+                          color: '#172B4D', 
+                          lineHeight: 1.6,
+                          pl: 2,
+                          borderLeft: '3px solid rgba(18, 52, 86, 0.2)'
+                        }}
+                      >
+                        {qa.answer}
+                      </Typography>
+                    </Box>
                   ))}
-                </List>
+                </Box>
               </Paper>
             </Grid>
           ))}
         </Grid>
 
-        {/* Achievement Gallery Section */}
-        {achievementsData.images && achievementsData.images.length > 0 && (
-          <Box sx={{ mt: 8 }}>
-            <Box sx={{ textAlign: 'center', mb: 6 }}>
-              <Chip
-                icon={<PhotoLibraryIcon sx={{ color: 'white !important' }} />}
-                label="Visual Highlights"
-                sx={{
-                  backgroundColor: 'rgba(18, 52, 86, 0.1)',
-                  color: '#123456',
-                  fontWeight: 600,
-                  mb: 2,
-                  px: 2,
-                  py: 3,
-                  '& .MuiChip-icon': {
-                    color: '#123456 !important'
-                  }
-                }}
-              />
-              <Typography 
-                variant="h4" 
-                component="h3" 
-                sx={{ 
-                  fontWeight: 700, 
-                  color: '#123456',
-                  mb: 2
-                }}
-              >
-                Achievement Gallery
-              </Typography>
-              <Typography variant="body1" sx={{ color: '#666', maxWidth: '600px', mx: 'auto' }}>
-                Celebrating our milestones and memorable moments in the geophysical community.
-              </Typography>
-            </Box>
-            <Grid container spacing={3}>
-              {achievementsData.images.map((image, index) => (
-                <Grid item xs={12} sm={6} md={6} key={index}>
-                  <Paper
-                    elevation={3}
-                    sx={{ 
-                      borderRadius: 3,
-                      overflow: 'hidden',
-                      transition: 'all 0.3s ease',
-                      '&:hover': {
-                        transform: 'translateY(-4px)',
-                        boxShadow: '0px 12px 24px rgba(18, 52, 86, 0.15)',
-                      }
-                    }}
-                  >
-                    <Box
-                      component="img"
-                      sx={{
-                        width: '100%',
-                        height: 280,
-                        objectFit: 'cover',
-                      }}
-                      src={image.src}
-                      alt={image.title}
-                    />
-                    <Box sx={{ p: 3 }}>
-                      <Typography variant="h6" sx={{ fontWeight: 700, mb: 1, color: '#123456' }}>
-                        Achievement Highlight {index + 1}
-                      </Typography>
-                      <Typography variant="body2" sx={{ color: '#172B4D', lineHeight: 1.6, fontStyle: 'italic' }}>
-                        {image.title}
-                      </Typography>
-                    </Box>
-                  </Paper>
-                </Grid>
-              ))}
-            </Grid>
+        {/* Call to Action Section */}
+        <Box sx={{ 
+          textAlign: 'center', 
+          mt: 8,
+          p: 4,
+          background: 'linear-gradient(135deg, rgba(18, 52, 86, 0.05) 0%, rgba(74, 107, 138, 0.05) 100%)',
+          borderRadius: 3,
+          border: '1px solid rgba(18, 52, 86, 0.1)'
+        }}>
+          <Typography 
+            variant="h5" 
+            sx={{ 
+              fontWeight: 700, 
+              mb: 2, 
+              color: '#123456'
+            }}
+          >
+            Still Have Questions?
+          </Typography>
+          <Typography 
+            variant="body1" 
+            sx={{ 
+              color: 'text.secondary',
+              mb: 3,
+              maxWidth: '500px',
+              mx: 'auto'
+            }}
+          >
+            Can't find what you're looking for? Our board members are here to provide personalized assistance and detailed information.
+          </Typography>
+          <Box sx={{ 
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 2,
+            px: 3,
+            py: 2,
+            background: '#123456',
+            color: 'white',
+            borderRadius: 2,
+            fontWeight: 600,
+            transition: 'all 0.3s ease',
+            cursor: 'pointer',
+            '&:hover': {
+              background: '#0b1e2e',
+              transform: 'translateY(-2px)'
+            }
+          }}>
+            <ContactSupportIcon />
+            <Typography variant="button" sx={{ fontWeight: 600 }}>
+              Contact Board
+            </Typography>
           </Box>
-        )}
+        </Box>
       </Container>
     </Box>
   );
-};
-
-export default ObjectivesSection;
-
+}

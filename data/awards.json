@@ -1,0 +1,35 @@
+{
+  "title": "SPG-NA Annual Awards",
+  "introduction": "In 2010 SPG-NA introduced two annual awards presented to selected members at the SPG meeting during the SEG annual conference.",
+  "awards": [
+    {
+      "name": "Technical Achievement Award",
+      "description": "Recognizes outstanding technical contributions to the field of petroleum geophysics"
+    },
+    {
+      "name": "Honorary Member of the Year Award",
+      "description": "Honors exceptional service and dedication to the SPG-NA community"
+    }
+  ],
+  "recipients": [
+    {
+      "year": "2010",
+      "technical_achievement": {
+        "recipient": "Dr. Samik Sil",
+        "affiliation": "ConocoPhillips",
+        "presenter": "Prof. Mrinal Sen",
+        "presenter_affiliation": "University of Texas",
+        "image": "/award1.jpg",
+        "caption": "SPGNA Annual Technical Award: Prof. Mrinal Sen (Univ. of Texas) presenting award to Samik Sil (ConocoPhillips)"
+      },
+      "honorary_member": {
+        "recipient": "Dr. Dhananjay Kumar",
+        "affiliation": "Chevron",
+        "presenter": "Prof. Subhashis Mallick",
+        "presenter_affiliation": "University of Wyoming",
+        "image": "/award2.jpg",
+        "caption": "SPGNA Honorable Member of the Year: Prof. Subhashis Mallick (Univ. of Wyoming) presenting award to Dhananjay Kumar (Chevron)"
+      }
+    }
+  ]
+}

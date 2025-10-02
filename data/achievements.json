@@ -1,0 +1,37 @@
+{
+  "publications": [
+    "Successfully published a special issue of journal 'Geohorizons' in Dec. 2009."
+  ],
+  "conferenceSupport": [
+    "Puneet Saraswat (student, ISMU), SEG-2011",
+    "Shaunak Ghosh (Student, IIT Kharagpur), AGU-2010",
+    "Vishal Das (Student, ISMU), SEG-2010",
+    "Rima Chatterjee (Professor, ISMU), SEG-2009"
+  ],
+  "careerGuidance": [
+    "Internship options",
+    "Full-time job opportunities",
+    "Admission into graduate school and financial assistantship"
+  ],
+  "educationalContributions": [
+    "Various short courses were taught by SPG-NA members in India during biannual SPG-India conference."
+  ],
+  "images": [
+    {
+      "src": "/achievement1.jpg",
+      "title": "Priyank Jaiswal presenting SPGNA 2010 scholarship to a student from India (Shaunak Ghosh) to attend/present paper at AGU-2010"
+    },
+    {
+      "src": "/achievement2.jpg",
+      "title": "Abhijit Gangopadhyay presenting SPGNA 2011 scholarship to a student from India (Puneet Saraswat) to attend/present paper at SEG-2011"
+    },
+    {
+      "src": "/achievement3.jpeg",
+      "title": "Supported a faculty from India to attend/present paper at SEG-2009"
+    },
+    {
+      "src": "/achievement4.jpeg",
+      "title": "Supported a student from India to attend/present paper at SEG-2010"
+    }
+  ]
+}

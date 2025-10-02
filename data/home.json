@@ -1,0 +1,26 @@
+{
+  "heroImages": [
+    {
+      "src": "/landing1.jpg",
+      "alt": "SPG Conference",
+      "title": "Society of Petroleum Geophysicists"
+    },
+    {
+      "src": "/landing2.png",
+      "alt": "Geophysics Research",
+      "title": "Advancing Geoscience Excellence"
+    },
+    {
+      "src": "/landing3.webp",
+      "alt": "Collaboration",
+      "title": "Fostering Global Collaboration"
+    },
+    {
+      "src": "/landing4.jpg",
+      "alt": "Innovation",
+      "title": "Innovation in Petroleum Geophysics"
+    }
+  ],
+  "welcomeMessage": "Welcome to the Society of Petroleum Geophysicists of North America",
+  "description": "A professional organization dedicated to fostering collaboration between Indian and American geoscientists."
+}
